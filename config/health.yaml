@@ -1,0 +1,43 @@
+# THRUST-HM Health Engine Configuration
+
+thruster:
+  pwm_neutral: 1500       # Neutral PWM signal in µs
+  pwm_deadband: 25        # Neutral zone deadband (1475 to 1525 µs)
+  pwm_min: 1100           # Minimum operational PWM in µs
+  pwm_max: 1900           # Maximum operational PWM in µs
+  voltage_min: 9.0        # V (Lower bound for nominal operation)
+  voltage_max: 21.0       # V (Upper bound for nominal operation)
+  current_max: 35.0       # A (Absolute maximum safe current limit)
+  temp_max: 70.0          # °C (Absolute maximum ESC temp)
+  temp_rate_max: 1.5      # °C/s (Max expected rate of temperature increase)
+
+data_quality:
+  stuck_limit: 20                  # Maximum consecutive identical values before error
+  gap_limit_seconds: 3.0           # Max time gap between telemetry points
+  min_voltage: 5.0                 # Under-voltage sensor limit (fault if below)
+  max_voltage: 24.0                # Over-voltage sensor limit (fault if above)
+  min_current: -1.0                # Sensor limits
+  max_current: 40.0
+
+ewma:
+  lambda: 0.15                     # EWMA smoothing factor (0 to 1)
+  threshold_zscore: 3.0            # Z-score limit for residual anomaly trigger
+
+cusum:
+  k: 0.25                          # Drift slack parameter (units of standard deviations)
+  h: 4.0                           # Threshold parameter for flagging "persistent deviation"
+
+baseline:
+  min_samples_for_baseline: 150    # Samples needed per region to establish statistics
+  default_std_cap_low: 0.1         # Floor for standard deviation to avoid divide-by-zero
+
+scoring_weights:
+  electrical: 0.50                 # Current/Power residual weight
+  thermal: 0.30                    # Temperature/Thermal rate weight
+  stability: 0.20                  # EWMA/CUSUM stability weight
+
+health_thresholds:
+  healthy_min: 90.0                # Health Index >= 90 is HEALTHY
+  monitor_min: 75.0                # 75 <= Health Index < 90 is MONITOR
+  warning_min: 50.0                # 50 <= Health Index < 75 is WARNING
+  critical_min: 0.0                # Health Index < 50 is CRITICAL

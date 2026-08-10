@@ -1,0 +1,31 @@
+# THRUST-HM System Configuration
+server:
+  host: "127.0.0.1"
+  port: 8000
+  log_level: "info"
+
+database:
+  db_path: "c:/Users/DIVYANSH ARZARE/Downloads/thruster-health-monitor-main/thruster-health-monitor-main/data/thruster_health.db"
+
+paths:
+  reference_dir: "c:/Users/DIVYANSH ARZARE/Downloads/thruster-health-monitor-main/thruster-health-monitor-main/data/reference/t200"
+  sample_dir: "c:/Users/DIVYANSH ARZARE/Downloads/thruster-health-monitor-main/thruster-health-monitor-main/data/sample"
+
+telemetry:
+  default_source: "simulation" # Options: simulation, replay
+  update_rate_hz: 10.0         # Main engine execution frequency
+
+simulation:
+  noise:
+    pwm: 0.0
+    voltage: 0.05       # V stddev
+    current: 0.08       # A stddev
+    temperature: 0.1    # °C stddev
+  esc_resistance: 0.02  # Ohms (for ESC self-heating model)
+  thermal_coupling: 0.05 # ESC temperature rise coefficient per W of self-heat
+  thermal_dissipation: 0.02 # ESC thermal cooling rate to ambient water
+  ambient_temp: 20.0    # Water temperature in °C
+
+replay:
+  default_file: "sample_telemetry.csv"
+  playback_speed: 1.0

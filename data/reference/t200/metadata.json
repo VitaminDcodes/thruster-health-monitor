@@ -1,0 +1,24 @@
+{
+  "model": "T200",
+  "reference_data_source": "Manufacturer Supplied Characterization Graphs",
+  "voltage_range": {
+    "min_v": 10.0,
+    "max_v": 20.0,
+    "unit": "V"
+  },
+  "pwm_range": {
+    "min_us": 1100,
+    "max_us": 1900,
+    "neutral_us": 1500,
+    "deadband_us": 25,
+    "unit": "us"
+  },
+  "operating_directions": ["FORWARD", "REVERSE", "NEUTRAL"],
+  "assumptions": [
+    "Interpolation grid uses 25 µs intervals for ESC PWM between 1100 and 1900 µs.",
+    "Interpolation grid uses 2.0 V intervals for supply voltage between 10.0 and 20.0 V.",
+    "Values in deadband (1475 to 1525 µs) are fixed to quiescent levels (0.05 A current draw).",
+    "Bollard thrust and current values are symmetric between clockwise and counter-clockwise rotations, scaled down by 0.92 for reverse propulsion to match typical propeller geometry characteristics.",
+    "Efficiency is calculated as Bollard thrust (gf) / Electric Power (W)."
+  ]
+}
